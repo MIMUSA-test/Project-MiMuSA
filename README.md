@@ -1,2 +1,2 @@
-# MIMUSA
-Testing webpage for MIMUSA
+# MIMUSA-test model
+This repo contains the python codes for MIMUSA.
