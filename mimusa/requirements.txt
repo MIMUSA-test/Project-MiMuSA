@@ -4,4 +4,4 @@ wheel
 pandas
 nltk
 regex
-csv
+python-csv
