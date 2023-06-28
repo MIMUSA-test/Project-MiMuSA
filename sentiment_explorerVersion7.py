@@ -188,7 +188,7 @@ def newtext_fullstop(text):
     text = text.replace("'re","are")
     text = text.replace("'m","am")
     text = text.replace("'m","am")
-      
+    
     text = text.replace("should improve","slightly negative")
     text = text.replace("would improve","slightly negative")
     text = text.replace("could improve","slightly negative")
@@ -214,13 +214,13 @@ def newtext_fullstop(text):
     
     text = re.sub("\S*@\S*\s?",'',text)   # delete email address
     text = text.replace('\n', ' ').replace('\r', '')  # Clean up all "\n"
-    
-    text = re.sub(r"""
-               [)(@#&$]+  # Accept one or more copies of punctuation
-               \ *           # plus zero or more copies of a space,
-               """,
-               "",          # and replace it with no space
-               text, flags=re.VERBOSE)
+    text = re.sub(r'[\(\)@#&$]+ *\s?', '', text)
+    # text = re.sub(r"""
+    #            [)(@#&$]+  # Accept one or more copies of punctuation
+    #            \ *           # plus zero or more copies of a space,
+    #            """,
+    #            "",          # and replace it with no space
+    #            text, flags=re.VERBOSE)
     
     text = text.replace('.', ' .') #specially added to maintain fullstop
     text = text.replace('?', ' ?') #specially added to maintain question mark
