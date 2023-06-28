@@ -72,7 +72,7 @@ def newtext(text):
     text = re.sub('http[s]?://\S+', '', text) # delete urls
     for k, v in replace_words_dic.items():
         if k in text:
-            text = re.sub(k,v,text)
+            text = re.sub(str(k),str(v),text)
     text = text.replace("comfort delgro","comfortdelgro")            
     text = text.replace("as well as","and")
     text = text.replace("as well","also")
@@ -160,7 +160,7 @@ def newtext_fullstop(text):
     text = re.sub('http[s]?://\S+', '', text) # delete urls
     for k, v in replace_words_dic.items():
         if k in text:
-            text = re.sub(k,v,text)    
+            text = re.sub(str(k),str(v),text)    
     text = text.replace("comfort delgro","comfortdelgro")       
     text = text.replace("as well as","and")
     text = text.replace("as well","also")
