@@ -105,7 +105,7 @@ def newtext(text):
     
     text = text.replace("n't"," not")
     text = text.replace("n't"," not")
-    text = text.replace("don"," not")
+    text = text.replace("don","do not")
     text = text.replace("dun"," not")
     text = text.replace("'s"," is")
     text = text.replace("'s"," is")
