@@ -161,7 +161,7 @@ def newtext_fullstop(text):
     for k, v in replace_words_dic.items():
         if k in text:
             text = re.sub(str(k),str(v),text)    
-    text = text.sub("comfort delgro","comfortdelgro", text)       
+    text = text.replace("comfort delgro","comfortdelgro")       
     text = text.replace("as well as","and")
     text = text.replace("as well","also")
     text = text.replace("would like","shall")

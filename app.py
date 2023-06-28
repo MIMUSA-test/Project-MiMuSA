@@ -13,7 +13,7 @@ def get_score():
     # text = "There must be a reason why the officer did this to the PMD rider."
     # text = "The bad guy broke his arm, he was so lucky."
     text = newtext_fullstop(text)
-    text = newtext(text)
+    # text = newtext(text)
     polarity4_list = findPolarity4_too_like(text)
     score4 = countPolarity4(polarity4_list, 7)
     sarcasm = recognise_sarcasm(polarity4_list)
