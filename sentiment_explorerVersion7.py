@@ -9,6 +9,7 @@ from nltk import word_tokenize
 import re
 import csv
 nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
 
 # Read CSV file
 replace_words_dic = {}
