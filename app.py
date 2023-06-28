@@ -15,10 +15,10 @@ def get_score():
     text = newtext_fullstop(org_text)
     # text = newtext(text)
     # print("\nEdited text:", text)
-    # polarity4_list = findPolarity4_too_like(text)
-    # score4 = countPolarity4(polarity4_list, 7)
-    # sarcasm = recognise_sarcasm(polarity4_list)
-    # score4 = flip(sarcasm, score4)
+    polarity4_list = findPolarity4_too_like(text)
+    score4 = countPolarity4(polarity4_list, 7)
+    sarcasm = recognise_sarcasm(polarity4_list)
+    score4 = flip(sarcasm, score4)
     # polarity5_list = findPolarity5(text)
     # score5 = countPolarity5(polarity5_list, 7)
     # polarity6_list = findPolarity6(text)
@@ -34,7 +34,8 @@ def get_score():
         {
             "code": 200,
             "text": text,
-            "data": final_score
+            # "data": final_score,
+            "data": score4,
         }
     )
 
