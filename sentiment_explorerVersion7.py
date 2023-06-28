@@ -126,13 +126,13 @@ def newtext(text):
 
     text = re.sub("\S*@\S*\s?",'',text)   # delete email address
     text = text.replace('\n', ' ').replace('\r', '')  # Clean up all "\n"
-    
-    text = re.sub(r"""
-               [)(@#&$]+  # Accept one or more copies of punctuation
-               \ *           # plus zero or more copies of a space,
-               """,
-               "",          # and replace it with no space   [,.;@#?!&$]+ 
-               text, flags=re.VERBOSE)
+    text = re.sub(r'[\(\)@#&$]+ *\s?', '', text)
+    # text = re.sub(r"""
+    #            [)(@#&$]+  # Accept one or more copies of punctuation
+    #            \ *           # plus zero or more copies of a space,
+    #            """,
+    #            "",          # and replace it with no space
+    #            text, flags=re.VERBOSE)
     
     text = text.replace('.', ' .') #specially added to maintain fullstop
     text = text.replace('?', ' ?') #specially added to maintain question mark
