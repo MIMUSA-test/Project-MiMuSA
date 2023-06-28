@@ -71,6 +71,24 @@ def newtext(text):
     text = re.sub('#[^\s]+','',text)
     text = re.sub('".*?"', '', text)  # delete anything in quotation marks
     text = re.sub('http[s]?://\S+', '', text) # delete urls
+    
+    text = re.sub("\S*@\S*\s?",'',text)   # delete email address
+    text = text.replace('\n', ' ').replace('\r', '')  # Clean up all "\n"
+    text = re.sub('[\(\)@#&$]+ *\s?', '', text)
+    # text = re.sub(r"""
+    #            [)(@#&$]+  # Accept one or more copies of punctuation
+    #            \ *           # plus zero or more copies of a space,
+    #            """,
+    #            "",          # and replace it with no space
+    #            text, flags=re.VERBOSE)
+    
+    text = text.replace('.', ' .') #specially added to maintain fullstop
+    text = text.replace('?', ' ?') #specially added to maintain question mark
+    text = text.replace('!', ' !') #specially added to maintain exclamation mark
+    text = text.replace(',', ' ,') #specially added to maintain exclamation mark
+    text = text.replace(';', ' ;') #specially added to maintain exclamation mark
+    text = text.replace(':', ' :') #specially added to maintain exclamation mark
+    
     for k, v in replace_words_dic.items():
         if k in text:
             text = re.sub(str(k),str(v),text)
@@ -124,23 +142,6 @@ def newtext(text):
     text = text.replace("takes advantage","slightly negative") 
     #text = text.replace("please help","slightly negative")
     #text = text.replace("please","do") 
-
-    text = re.sub("\S*@\S*\s?",'',text)   # delete email address
-    text = text.replace('\n', ' ').replace('\r', '')  # Clean up all "\n"
-    text = re.sub('[\(\)@#&$]+ *\s?', '', text)
-    # text = re.sub(r"""
-    #            [)(@#&$]+  # Accept one or more copies of punctuation
-    #            \ *           # plus zero or more copies of a space,
-    #            """,
-    #            "",          # and replace it with no space
-    #            text, flags=re.VERBOSE)
-    
-    text = text.replace('.', ' .') #specially added to maintain fullstop
-    text = text.replace('?', ' ?') #specially added to maintain question mark
-    text = text.replace('!', ' !') #specially added to maintain exclamation mark
-    text = text.replace(',', ' ,') #specially added to maintain exclamation mark
-    text = text.replace(';', ' ;') #specially added to maintain exclamation mark
-    text = text.replace(':', ' :') #specially added to maintain exclamation mark
     
     text= re.sub(' +', ' ', text)
     #text= re.sub(':', '', text)
