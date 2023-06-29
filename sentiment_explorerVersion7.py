@@ -104,8 +104,7 @@ def newtext(text):
     text = text.replace("should be","slightly negative")
     
     text = text.replace("n't"," not")
-    text = text.replace("n't"," not")
-    text = text.replace("don","do not")
+    text = text.replace("don","not")
     text = text.replace("dun"," not")
     text = text.replace("'s"," is")
     text = text.replace("'s"," is")
@@ -175,9 +174,8 @@ def newtext_fullstop(text):
     text = text.replace("should be","slightly negative")
 
     text = text.replace("n't"," not")
-    text = text.replace("dont"," not")
-    text = text.replace("don"," not")
-    text = text.replace("dun"," not")
+    # text = text.replace("don"," not")
+    # text = text.replace("dun"," not")
     text = text.replace("'s"," is")
     text = text.replace("'s"," is")
     text = text.replace("'ve"," have")
@@ -235,6 +233,7 @@ def newtext_fullstop(text):
     #text= re.sub(':', '', text)
     text= re.sub("[:']", '', text)
     #text = re.sub ('\s+', '', text)
+    text = re.sub('"', '', text)  # delete quotation marks
     return text.lower()
 
 ##----------------------------------------------- Step 1 prof wang's standard english-----------------------------------------------##
