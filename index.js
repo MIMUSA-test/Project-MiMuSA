@@ -1,7 +1,4 @@
-// const mimusa_python_code_URL = "https://mimusa-test-model.onrender.com/generate"
-const mimusa_python_code_URL = "http://127.0.0.1:8000/generate"
-const mimusa2_python_code_URL = "http://127.0.0.1:8000/generate2"
-// const mimusa_python_code_URL = "https://model.socialopinionanalytics.net/generate"
+import {model1, model2} from './config.js';
 
 const app = Vue.createApp({
 
@@ -18,7 +15,7 @@ const app = Vue.createApp({
     methods: {
         get_score() {
             console.log(this.original_text);
-            fetch(`${mimusa_python_code_URL}`,
+            fetch(`${model1}`,
                 {
                     method: "POST",
                     headers: {
@@ -35,7 +32,7 @@ const app = Vue.createApp({
         },
         get_score2() {
             console.log(this.original_text);
-            fetch(`${mimusa2_python_code_URL}`,
+            fetch(`${model2}`,
                 {
                     method: "POST",
                     headers: {
