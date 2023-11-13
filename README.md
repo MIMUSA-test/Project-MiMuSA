@@ -113,7 +113,7 @@ Install the required python libraries with pip
     cd model
     pip install -r requirements.txt
    ```
-3. Use the local api URLs in `config.js`
+3. Use the local URLs in `config.js`
     ```js
     const model1 = "http://127.0.0.1:8080/generate"
     const model2 = "http://127.0.0.1:8080/generate2"
@@ -260,8 +260,8 @@ Below is the documentation of how this project was setup and is currently used a
 #### Repo `config.js`
 1. Change the `model1` and `model2` URLs to your domain name
     ```js
-    const model1 = "https:/YOUR-SUB-DOMAIN-NAME/generate"
-    const model2 = "https:/YOUR-SUB-DOMAIN-NAME/generate2"
+    const model1 = "https://YOUR-SUB-DOMAIN-NAME/generate"
+    const model2 = "https://YOUR-SUB-DOMAIN-NAME/generate2"
     ```
 
 <br/>
