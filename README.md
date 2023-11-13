@@ -259,8 +259,8 @@ Below is the documentation of how this project was setup and is currently used a
 #### Repo `config.js`
 1. Change the `model1` and `model2` URLs to your domain name
     ```js
-    const model1 = "YOUR-SUB-DOMAIN-NAME/generate"
-    const model2 = "YOUR-SUB-DOMAIN-NAME/generate2"
+    const model1 = "https:/YOUR-SUB-DOMAIN-NAME/generate"
+    const model2 = "https:/YOUR-SUB-DOMAIN-NAME/generate2"
     ```
 
 <br/>
