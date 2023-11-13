@@ -28,22 +28,23 @@ def get_score():
     score_multi = lib1.multi_value(polarity6_list, text, polarity_count_after_adversative, 5)
     score_multi = lib1.qn_mark(text, score_multi)
     final_score = lib1.new_multi(score_multi)
+    sentiment = ""
 
-    if (final_score == -2) {
+    if (final_score == -2) :
         sentiment = "Strongly Negative"
-    }
-    else if (final_score == -1) {
+
+    elif (final_score == -1) :
         sentiment = "Negative"
-    }
-    else if (final_score == 0) {
+    
+    elif (final_score == 0) :
         sentiment = "Neutral"
-    }
-    else if (final_score == 1) {
+    
+    elif (final_score == 1) :
         sentiment = "Positive"
-    }
-    else if (final_score == 2) {
+    
+    elif (final_score == 2) :
         sentiment = "Strongly Positive"
-    }
+    
 
 
     return jsonify(
