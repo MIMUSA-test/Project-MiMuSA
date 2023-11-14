@@ -8,6 +8,7 @@ const app = Vue.createApp({
             original_text: "",
             sentiment: "",
             final_text: "",
+            textType: "sentence",
         }
     },
 
