@@ -1,4 +1,4 @@
-import {model1, model2} from './config.js';
+const model_url = "https://model.socialopinionanalytics.net"
 
 const app = Vue.createApp({
 
@@ -8,7 +8,8 @@ const app = Vue.createApp({
             original_text: "",
             sentiment: "",
             final_text: "",
-            textType: "sentence",
+            text_type: "sentence",
+            lol: "lol"
         }
     },
 
@@ -16,7 +17,7 @@ const app = Vue.createApp({
     methods: {
         get_score() {
             console.log(this.original_text);
-            fetch(`${model1}`,
+            fetch(`${model_url + "/generate"}`,
                 {
                     method: "POST",
                     headers: {
@@ -33,7 +34,7 @@ const app = Vue.createApp({
         },
         get_score2() {
             console.log(this.original_text);
-            fetch(`${model2}`,
+            fetch(`${model_url + "/generate2"}`,
                 {
                     method: "POST",
                     headers: {
