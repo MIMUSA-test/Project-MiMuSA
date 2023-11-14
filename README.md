@@ -288,6 +288,19 @@ Demo is now available at https://mimusa-test.github.io/Project-MiMuSA/
     sudo systemctl restart nginx
     ```
 
+<br/>
+
+Setup auto renewal of HTTPS certificate
+1. Connect/SSH into the EC2 Web Server instance
+2. Create a cron job
+    ```sh
+    sudo crontab -e
+    ```
+3. Add the following line to the end of the file (Renews every 3 months)
+    ```sh
+    0 0 1 */3 * certbot renew
+    ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
