@@ -353,7 +353,7 @@ MiMuSA 2 paper has yet to be published.
 [issues-shield]: https://img.shields.io/github/issues/MIMUSA-test/Project-MiMuSA.svg?style=for-the-badge
 [issues-url]: https://github.com/MIMUSA-test/Project-MiMuSA/issues
 [license-shield]: https://img.shields.io/github/license/MIMUSA-test/Project-MiMuSA.svg?style=for-the-badge
-[license-url]: https://github.com/MIMUSA-test/Project-MiMuSA/blob/master/LICENSE.txt
+[license-url]: https://github.com/MIMUSA-test/Project-MiMuSA/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
