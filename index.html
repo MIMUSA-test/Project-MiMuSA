@@ -28,88 +28,119 @@
             h5, div, span {
                 color: #fff;
             }
+
+            /* width */
+            ::-webkit-scrollbar {
+            width: 10px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+            /* box-shadow: inset 0 0 5px grey; */
+            border-radius: 0px;
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+            background: rgb(46, 46, 46);
+            border-radius: 10px;
+            }
         </style>
 
 </head>
 <body>
+    
 <!-- Main App-->
 <div id="app" class="container-fluid ">
-    <div class="row mb-3"></div>
+    <a class="link-offset-2 link-underline link-underline-opacity-0" href="index.html">
+        <h1 class="text-white text-align px-5 mt-5">MIMUSA Testing Site</h1>
+    </a>
 
-    <div class="row">
+    <!-- <hr class="w-75 mx-auto mt-3 mb-4"> -->
 
-        <div class="col"></div>
-
-
+    <div class="row py-3"></div>
+    <div class="row justify-content-center">
         <div class="col-8">
-
-            <div class="container-fluid py-2 text-center">
-
-                <h1>MIMUSA Testing Site</h1>
-            </div>
-            <div class="py-2">
-                <h5 style="margin-bottom: 0">About:</h5>
-                This website tests the MIMUSA sentiment analysis model. With the input of any SINGLE sentence, we shall output the sentiment value of the sentence ranging form
-                strongly positive to strongly negative. For specifications on how the code works, kindly refer to the publication of the research paper.
-                Thank you.
-            </div>
-            <form>
-                <span>
-                        Enter your sentence:
-                    </span>
-
-                <div class="row">
-
-                    <div class="col">
-                        <input type="text" class="form-control" v-model="original_text" @keydown.enter.prevent="get_score()">
-                    </div>
-
-
-                    <div class="col-2 d-grid gap-2">
-                        <button type="button" class="btn btn-primary" v-on:click="get_score()">
-                            Calculate
-                        </button>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-md-4 col-xl-3 py-2">
+                    <input type="radio" class="btn-check" name="options-outlined" id="sentence-level" autocomplete="off" value="sentence" v-model="textType">
+                    <label class="btn btn-outline-info align-self-center w-100 fw-bold" for="sentence-level">Sentence-Level</label>
                 </div>
-            </form><!-- end-form -->
+                <div class="col-sm-6 col-md-4 col-xl-3 py-2">
+                    <input type="radio" class="btn-check" name="options-outlined" id="para-level" autocomplete="off" value="paragraph" v-model="textType">
+                    <label class="btn btn-outline-info align-self-center w-100 fw-bold" for="para-level">Paragraph-level</label>
+                </div>
+            </div>
 
-            <!-- </div> -->
-
-            <!-- </div> -->
-            <!-- [Bottom] end-row -->
-        </div>
-        <div class="col"></div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-8">
-            <div class="py-2">
-                <h5 style="margin-bottom: 0">Result:</h5>
-                <div class="row">
-                    <div class="col">
-                        <div class="py-2">
-                            <span>
-                                Sentiment Value:
-                            </span>
-                            <span>
-                                {{sentiment}}
-                            </span>
-                        </div>
+            <div class="row mt-3 justify-content-center">
+                <div class=" col-xl-9">
+                    <div class="border border-secondary border-opacity-75 p-3">
+                        <h5>Quick explanation</h5>
+                        <span v-show="textType == 'sentence'">
+                            Based on our internal dictionary, each word is analysed and assigned a sentiment value. 
+                            Depending on the detection of sarcasm, double negative etc, the values of all individual words will be taken into consideration for the computation of the sentiment category displayed at the end.
+                        </span>
+                        <span v-show="textType == 'paragraph'">
+                            Utilising the compounding values from the Sentence-Level model, each sentence is analysed and assigned a sentiment value. 
+                            Depending on the percantages of positive, negative, and neutral sentences, the overall percentages will be used for the computation of the sentiment category displayed at the end.
+                        </span>
                     </div>
                 </div>
             </div>
+
+            <br>
+            Enter your {{textType}}:
+            <div class="row pt-1">
+                <div class="col">
+                    <textarea class="form-control" placeholder="Type here" id="floatingTextarea" v-model="original_text"></textarea>
+                    <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="original_text" @keydown.enter.prevent="get_score()"></textarea> -->
+                    <!-- <textarea class="form-control" v-model="original_text" @keydown.enter.prevent="get_score()"></textarea> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-3 col-lg-2 py-3">
+                    <button type="button" v-show="textType == 'sentence'" class="btn btn-primary w-100" v-on:click="get_score()">
+                        Analyse
+                    </button>
+                    <button type="button" v-show="textType == 'sentence'" class="btn btn-primary w-100" v-on:click="get_score2()">
+                        Analyse
+                    </button>
+                </div>
+
+                <div class="col-sm-4 col-md-3 col-lg-2 text-center text-sm-start align-self-center">
+                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="about.html">Learn more</a>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col">
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" 
+                        data-bs-title="<b>Scales:</b> <br>
+                                        Strongly Positive <br>
+                                        Positive <br>
+                                        Neutral <br>
+                                        Negative <br>
+                                        Strongly Negative <br>">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" viewBox="0 2 24 24" style="fill:#FFFFFF;">
+                            <path d="M12,2C6.477,2,2,6.477,2,12s4.477,10,10,10s10-4.477,10-10S17.523,2,12,2z M13,17h-2v-6h2V17z M13,9h-2V7h2V9z"></path>
+                        </svg>
+                    </a> 
+                    
+                    <b>
+                        Sentiment Value: 
+                    </b>
+                        {{sentiment}}
+                </div>
+            </div>
+
         </div>
-        <div class="col"></div>
     </div>
-
-
-
+    
 </div><!-- [Main App] end-container-->
 
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="index.js"></script>
 
 </body>
