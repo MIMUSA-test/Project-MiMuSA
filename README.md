@@ -330,9 +330,13 @@ Project Link: [https://github.com/MIMUSA-test/Project-MiMuSA](https://github.com
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+This research was supported by SMU under IS470 Guided Research in Computing as well as the Undergraduate Research (UResearch) in Computing Programme.
+<br/>
+The authors would like to thank WANG Zhaoxia in her guidance and sharing of resources and ideas; SUN Jun for his assistance and guidance in the entire research process.
+
+MiMuSA reference paper can be found here: https://ink.library.smu.edu.sg/cgi/viewcontent.cgi?article=8956&context=sis_research
+<br/>
+MiMuSA 2 paper has yet to be published.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
