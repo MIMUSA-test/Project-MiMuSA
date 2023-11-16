@@ -80,9 +80,6 @@ def newtext_fullstop(text):
     text = text.replace('*', '')  # Remove asterisks
     text = re.sub("\S*@\S*\s?",'',text)   # delete email address
     text = text.replace('\n', ' ').replace('\r', '')  # Clean up all "\n"
-    for k, v in replace_words_dic.items():
-        if k in text:
-            text = re.sub(k,v,text)
 
     text = text.replace("as well as","and")
     text = text.replace("as well","also")
