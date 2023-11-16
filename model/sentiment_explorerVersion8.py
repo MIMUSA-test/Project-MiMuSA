@@ -138,13 +138,15 @@ def breakParagraph(para):
     para = re.sub(r'\b(?:www\.)?[A-Za-z0-9_-]+\.(?:com|org|net|gov|edu|info|biz|co)\b', '', para) # delete websites such as JD.com
     para = re.sub(r'\b\d+\.\d+\b', '', para) # deletes decimal numbers
     para = re.sub(r'\bU\.S\.\b', 'USA', para) #replaces U.S. with USA
+    while ".." in para:
+        para = para.replace("..", ".")
     sentence_list = []
     sentence = ""
     for i in range(0,len(para)):
         char = para[i]
         sentence += char
         if (char == "." or char == "!" or char == "?"):
-            if sentence != "":
+            if sentence != "." and sentence != "!" and sentence != "?" and sentence != "":
                 sentence_list.append(sentence)
                 sentence = ""
     return sentence_list

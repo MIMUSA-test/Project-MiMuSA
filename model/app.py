@@ -60,6 +60,16 @@ def get_score2():
     text = request.get_data(as_text=True)
     print("\nReceived sentiment text in text format:", text)
 
+    # test for number of sentences
+    if text[-1] != ".":
+        text = text + "."
+
+    # test for number of sentences, if 1, call for /generate instead
+    sentence_list = lib2.breakParagraph(text)
+    print(sentence_list)
+    if len(sentence_list) == 1:
+        return get_score()
+
     #create a dictionary to store original_phases as key and target_produced_words1 and sentiment as the values from ngram_glen2023_replace_words.csv
     replace_words_dic = {}
     replace_words_sentiment_dic = {}
