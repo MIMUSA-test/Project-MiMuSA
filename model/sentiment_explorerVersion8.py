@@ -12,14 +12,15 @@ nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 
 # Read CSV file
+#create a dictionary to store original_phases as key and target_produced_words1 and sentiment as the values from ngram_glen2023_replace_words.csv
 replace_words_dic = {}
-with open('ngram_glen2023_replace_words.csv', 'r') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        original_phrase = row['original_phases'].lower()
-        target_word1 = row['target_produced_words1'].lower()
-        target_word2 = row['target_produced_words2'].lower()
-        replace_words_dic[original_phrase] = (target_word1, target_word2)
+replace_words_sentiment_dic = {}
+with open('ngram_glen2023_replace_words.csv', 'r') as f:
+    for line in f:
+        line = line.strip()
+        line = line.split(',')
+        replace_words_dic[line[4]] = line[6]
+        replace_words_sentiment_dic[line[6]] = line[9]
 
 
 ## All imported dictionaries/databases

@@ -12,14 +12,16 @@ nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 
 # Read CSV file
+#create a dictionary to store original_phases as key and target_produced_words1 and sentiment as the values from ngram_glen2023_replace_words.csv
 replace_words_dic = {}
-with open('ngram_20170222_ZX2021_replace_words.csv', 'r') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        original_phrase = row['original_phases'].lower()
-        target_word1 = row['target_produced_words1'].lower()
-        target_word2 = row['target_produced_words2'].lower()
-        replace_words_dic[original_phrase] = (target_word1, target_word2)
+replace_words_sentiment_dic = {}
+with open('ngram_20170222_ZX2021_replace_words.csv', 'r') as f:
+    for line in f:
+        line = line.strip()
+        line = line.split(',')
+        replace_words_dic[line[4]] = line[6]
+        replace_words_sentiment_dic[line[6]] = line[9]
+    # print(replace_words_dic)
 
 
 ## All imported dictionaries/databases
@@ -150,65 +152,44 @@ def newtext(text):
 
 def newtext_fullstop(text):
     text = text.strip()
-    text = text.replace('/\s\s+/g', ' ') # replace multiple spaces with a single space
+    # text = text.replace('/\s\s+/g', ' ') # replace multiple spaces with a single space
     text = text.replace(":)","happy")
     text = text.replace(":(","sad")
-    text = re.sub ('\s+', ' ', text)
+    text = re.sub ('\s+', ' ', text)  # replace multiple spaces with a single space
     text = re.sub('@[^\s]+','',text)  # delete the username
-    text = re.sub('&[^\s]+','',text)
-    text = re.sub('#[^\s]+','',text)
+    text = re.sub('&[^\s]+','',text)  # this one removes strings that start with '&' and are followed by one or more characters that are not whitespace.
+    text = re.sub('#[^\s]+','',text)  # removes hashtags
     text = re.sub('".*?"', '', text)  # delete anything in quotation marks
     text = re.sub('http[s]?://\S+', '', text) # delete urls
     for k, v in replace_words_dic.items():
+        # print("\nk type:", type(k))
+        # print("\nv type:", type(v))
         if k in text:
-            text = re.sub(str(k),str(v),text)    
+            # print("\nreplace_words_dic:", replace_words_dic.items())
+            text = text.replace(k,v)  
+    # print("\nMiddle cleaning:", text)
     text = text.replace("comfort delgro","comfortdelgro")       
     text = text.replace("as well as"," and")
     text = text.replace("as well"," also")
     text = text.replace("would like"," shall")
-    text = text.replace("should have","slightly negative")
-    text = text.replace("could have","slightly negative")
-    text = text.replace("would have","slightly negative")
-    text = text.replace("would be","slightly negative")
-    text = text.replace("could be","slightly negative")
-    text = text.replace("should be","slightly negative")
 
-    text = text.replace("n't"," not")
-    # text = text.replace("don"," not")
-    # text = text.replace("dun"," not")
-    text = text.replace("'s"," is")
-    text = text.replace("'s"," is")
-    text = text.replace("'ve"," have")
-    text = text.replace("'ve"," have")
-    text = text.replace("'d"," had")
-    text = text.replace("'d"," had")
-    text = text.replace("'ll"," will")
-    text = text.replace("'ll"," will")
-    text = text.replace("'re"," are")
-    text = text.replace("'re"," are")
-    text = text.replace("'m"," am")
-    text = text.replace("'m"," am")
-    
-    text = text.replace("should improve","slightly negative")
-    text = text.replace("would improve","slightly negative")
-    text = text.replace("could improve","slightly negative")
-    text = text.replace("would enhance","slightly negative")
-    text = text.replace("could enhance","slightly negative")
-    text = text.replace("would enhance","slightly negative")
-    text = text.replace("to be honest","I will say")
-    text = text.replace("it's like"," alike")
-    text = text.replace("middle finger","slightly negative")
-    text = text.replace("snapped","slightly negative")
-    text = text.replace("constantly accelerate","slightly negative") 
-    text = text.replace("accelerate constantly","slightly negative")
-    text = text.replace("accelerate and decelerate constantly","slightly negative") 
-    text = text.replace("stopage","negative")
-    text = text.replace("constantly accelerate and decelerate","slightly negative") 
-    text = text.replace("extension service"," good")
-    text = text.replace("take advantage","slightly negative")
-    text = text.replace("took advantage","slightly negative")
-    text = text.replace("taking advantage","slightly negative")
-    text = text.replace("takes advantage","slightly negative")
+    text = text.replace("n’t","not")
+    text = text.replace("n't","not")
+    # text = text.replace("don","not")
+    # text = text.replace("dun","not")
+    text = text.replace("’s","is")
+    text = text.replace("'s","is")
+    text = text.replace("’ve","have")
+    text = text.replace("'ve","have")
+    text = text.replace("’d","had")
+    text = text.replace("'d","had")
+    text = text.replace("’ll","will")
+    text = text.replace("'ll","will")
+    text = text.replace("’re","are")
+    text = text.replace("'re","are")
+    text = text.replace("’m","am")
+    text = text.replace("'m","am")
+
     #text = text.replace("please help","slightly negative")
     #text = text.replace("please","do") 
     

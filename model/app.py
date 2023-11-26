@@ -11,9 +11,8 @@ def get_score():
     text = request.get_data(as_text=True)
     print("\nReceived sentiment text in text format:", text)
 
-    # text = "There must be a reason why the officer did this to the PMD rider."
-    # text = "The bad guy broke his arm, he was so lucky."
     text = lib1.newtext_fullstop(text)
+    # print("\nAfter cleaning:", text)
     # text = newtext(text)
     polarity4_list = lib1.findPolarity4_too_like(text)
     score4 = lib1.countPolarity4(polarity4_list, 7)
@@ -29,6 +28,7 @@ def get_score():
     score_multi = lib1.qn_mark(text, score_multi)
     final_score = lib1.new_multi(score_multi)
     sentiment = ""
+    print("\nAfter cleaning:", text)
 
     if (final_score == -2) :
         sentiment = "Strongly Negative"
