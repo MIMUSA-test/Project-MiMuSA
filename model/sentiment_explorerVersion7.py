@@ -153,8 +153,8 @@ def newtext(text):
 def newtext_fullstop(text):
     text = text.strip()
     # text = text.replace('/\s\s+/g', ' ') # replace multiple spaces with a single space
-    text = text.replace(":)","happy")
-    text = text.replace(":(","sad")
+    text = text.replace(":)"," happy")
+    text = text.replace(":("," sad")
     text = re.sub ('\s+', ' ', text)  # replace multiple spaces with a single space
     text = re.sub('@[^\s]+','',text)  # delete the username
     text = re.sub('&[^\s]+','',text)  # this one removes strings that start with '&' and are followed by one or more characters that are not whitespace.
@@ -167,7 +167,7 @@ def newtext_fullstop(text):
         if k in text:
             # print("\nreplace_words_dic:", replace_words_dic.items())
             text = text.replace(k,v)  
-    # print("\nMiddle cleaning:", text)
+    print("\nMiddle cleaning:", text)
     text = text.replace("comfort delgro","comfortdelgro")       
     text = text.replace("as well as"," and")
     text = text.replace("as well"," also")

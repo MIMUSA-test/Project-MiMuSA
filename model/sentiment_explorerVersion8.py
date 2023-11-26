@@ -124,7 +124,7 @@ def newtext_fullstop(text):
 
     return text
 
-##------------------------------------------------- Step 0.1 Break down the pragraph -------------------------------------------------##
+##------------------------------------------------- Step 0 Break down the pragraph -------------------------------------------------##
 def breakParagraph(para):
     """ Breaks down the para input into sentences.
     a list of sentences (str) will be the output for
@@ -139,18 +139,73 @@ def breakParagraph(para):
     para = re.sub(r'\b(?:www\.)?[A-Za-z0-9_-]+\.(?:com|org|net|gov|edu|info|biz|co)\b', '', para) # delete websites such as JD.com
     para = re.sub(r'\b\d+\.\d+\b', '', para) # deletes decimal numbers
     para = re.sub(r'\bU\.S\.\b', 'USA', para) #replaces U.S. with USA
-    while ".." in para:
+    while (".." or "!!" or "??" or "?!" or "!?" or "?." or "!." or ".!" or ".?") in para:
         para = para.replace("..", ".")
+        para = para.replace("!!", "!")
+        para = para.replace("??", "?")
+        para = para.replace("?!", "?")
+        para = para.replace("!?", "!")
+        para = para.replace("?.", "?")
+        para = para.replace("!.", "!")
+        para = para.replace(".!", ".")
+        para = para.replace(".?", ".")
     sentence_list = []
     sentence = ""
     for i in range(0,len(para)):
         char = para[i]
         sentence += char
         if (char == "." or char == "!" or char == "?"):
-            if sentence != "." and sentence != "!" and sentence != "?" and sentence != "":
+            if any(char.isalpha() for char in sentence):
                 sentence_list.append(sentence)
                 sentence = ""
     return sentence_list
+
+def countSentence(para):
+    """ Count the number of sentences
+    within the paragraph/ input text.
+    
+    Args:
+        para (str): review
+
+    Returns:
+        int: sentence count
+    """
+    para = re.sub(r'\b(?:www\.)?[A-Za-z0-9_-]+\.(?:com|org|net|gov|edu|info|biz|co)\b', '', para) # delete websites such as JD.com
+    para = re.sub(r'\b\d+\.\d+\b', '', para) # deletes decimal numbers
+    para = re.sub(r'\bU\.S\.\b', 'USA', para) #replaces U.S. with USA
+    para = re.sub(r'\bU\.S\b', 'USA', para) #replaces U.S with USA
+    # stopper = False
+    # while stopper == False:
+    #     for i in range(0,len(para)-1):
+    #         char = para[i]
+    #         #if there is a space after a punctiation, remove the space
+            
+    #         if (char == "." or char == "!" or char == "?") and (para[i+1] == " "):
+    #             #remove the space after the punctuation
+    #             para = para[:i+1] + para[i+2:]
+
+    #     stopper = True
+
+    while (".." or "!!" or "??" or "?!" or "!?" or "?." or "!." or ".!" or ".?") in para:
+        para = para.replace("..", ".")
+        para = para.replace("!!", "!")
+        para = para.replace("??", "?")
+        para = para.replace("?!", "?")
+        para = para.replace("!?", "!")
+        para = para.replace("?.", "?")
+        para = para.replace("!.", "!")
+        para = para.replace(".!", ".")
+        para = para.replace(".?", ".")
+    sentence_count = 0
+    sentence = ""
+    for i in range(0,len(para)):
+        char = para[i]
+        sentence += char
+        if (char == "." or char == "!" or char == "?"):
+            if any(char.isalpha() for char in sentence):
+                sentence_count += 1
+                sentence = ""
+    return sentence_count
 
 ##----------------------------------------------- Step 1 prof wang's standard english-----------------------------------------------##
 def findPolarity(text):
