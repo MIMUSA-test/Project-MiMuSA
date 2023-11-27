@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import sentiment_explorerVersion7 as lib1
 import sentiment_explorerVersion8 as lib2
@@ -62,21 +62,25 @@ def get_score():
     sentence_count = lib2.countSentence(text)
     sentence_list = lib2.breakParagraph(text)
     if sentence_count == 0:
-        return jsonify(
-        {
-            "code": 200,
-            "text": text,
-            "data": "There are no sentences in the text. Please input a proper sentence.",
-        }
-    )
+        response = jsonify(
+            {
+                "code": 400,
+                "text": text,
+                "data": "There are no sentences in the text. Please input a proper sentence.",
+            }, 400
+        )
+        response.status_code = 400
+        return response
     elif sentence_count > 1:
-        return jsonify(
-        {
-            "code": 200,
-            "text": text,
-            "data": f"There are {sentence_count} sentences in the text. Please use Paragraph-level instead. {sentence_list}",
-        }
-    )
+        response = jsonify(
+            {
+                "code": 400,
+                "text": text,
+                "data": f"There are {sentence_count} sentences in the text. Please use Paragraph-level instead. {sentence_list}",
+            }
+        )
+        response.status_code = 400
+        return response
     else:
         text = sentence_list[0]
         sentiment = generate_sentiment(text)
@@ -98,13 +102,15 @@ def get_score2():
     sentence_count = lib2.countSentence(text)
     sentence_list = lib2.breakParagraph(text)
     if sentence_count == 0:
-        return jsonify(
-        {
-            "code": 200,
-            "text": text,
-            "data": "There are no sentences in the text. Please input a proper paragraph.",
-        }
-    )
+        response = jsonify(
+            {
+                "code": 400,
+                "text": text,
+                "data": "There are no sentences in the text. Please input a proper paragraph.",
+            }
+        )
+        response.status_code = 400
+        return response
     # test for number of sentences, if 1, call for /generate instead
     elif sentence_count == 1:
         return get_score()
