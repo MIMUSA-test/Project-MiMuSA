@@ -6,6 +6,53 @@ import sentiment_explorerVersion8 as lib2
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+def generate_sentiment(text):
+    text = lib1.newtext_fullstop(text)
+    # text = newtext(text)
+    polarity4_list = lib1.findPolarity4_too_like(text)
+    score4 = lib1.countPolarity4(polarity4_list, 7)
+    sarcasm = lib1.recognise_sarcasm(polarity4_list)
+    # print("sarcasm:", sarcasm)
+    score4 = lib1.flip(sarcasm, score4)
+    # print("score4:", score4)
+    polarity5_list = lib1.findPolarity5(text)
+    # print("polarity5_list:", polarity5_list)
+    score5 = lib1.countPolarity5(polarity5_list, 7)
+    # print("score5:", score5)
+    polarity6_list = lib1.findPolarity6(text)
+    # print("polarity6_list:", polarity6_list)
+    is_adversative_present = lib1.adversative_present(polarity6_list)
+    # print("is_adversative_present:", is_adversative_present)
+    polarity_count_after_adversative = lib1.update_p_after_adversative(is_adversative_present, score4, score5)
+    # print("polarity_count_after_adversative:", polarity_count_after_adversative)
+    polarity_count_after_adversative = lib1.qn_mark(text, polarity_count_after_adversative)
+    # print("polarity_count_after_adversative:", polarity_count_after_adversative)
+    score_multi = lib1.multi_value(polarity6_list, text, polarity_count_after_adversative, 5)
+    # print("score_multi:", score_multi)
+    # score_multi = lib1.qn_mark(text, score_multi)
+    final_score = lib1.new_multi(score_multi)
+    # print("final_score:", final_score)
+
+    sentiment = ""
+    print("\nAfter cleaning:", text)
+
+    if (final_score == -2) :
+        sentiment = "Strongly Negative"
+
+    elif (final_score == -1) :
+        sentiment = "Negative"
+    
+    elif (final_score == 0) :
+        sentiment = "Neutral"
+    
+    elif (final_score == 1) :
+        sentiment = "Positive"
+    
+    elif (final_score == 2) :
+        sentiment = "Strongly Positive"
+
+    return sentiment
+
 @app.route('/generate', methods=['POST'])
 def get_score():
     text = request.get_data(as_text=True)
@@ -32,48 +79,7 @@ def get_score():
     )
     else:
         text = sentence_list[0]
-        text = lib1.newtext_fullstop(text)
-        # text = newtext(text)
-        polarity4_list = lib1.findPolarity4_too_like(text)
-        score4 = lib1.countPolarity4(polarity4_list, 7)
-        sarcasm = lib1.recognise_sarcasm(polarity4_list)
-        # print("sarcasm:", sarcasm)
-        score4 = lib1.flip(sarcasm, score4)
-        # print("score4:", score4)
-        polarity5_list = lib1.findPolarity5(text)
-        # print("polarity5_list:", polarity5_list)
-        score5 = lib1.countPolarity5(polarity5_list, 7)
-        # print("score5:", score5)
-        polarity6_list = lib1.findPolarity6(text)
-        # print("polarity6_list:", polarity6_list)
-        is_adversative_present = lib1.adversative_present(polarity6_list)
-        # print("is_adversative_present:", is_adversative_present)
-        polarity_count_after_adversative = lib1.update_p_after_adversative(is_adversative_present, score4, score5)
-        # print("polarity_count_after_adversative:", polarity_count_after_adversative)
-        polarity_count_after_adversative = lib1.qn_mark(text, polarity_count_after_adversative)
-        # print("polarity_count_after_adversative:", polarity_count_after_adversative)
-        score_multi = lib1.multi_value(polarity6_list, text, polarity_count_after_adversative, 5)
-        # print("score_multi:", score_multi)
-        # score_multi = lib1.qn_mark(text, score_multi)
-        final_score = lib1.new_multi(score_multi)
-        # print("final_score:", final_score)
-        sentiment = ""
-        print("\nAfter cleaning:", text)
-
-        if (final_score == -2) :
-            sentiment = "Strongly Negative"
-
-        elif (final_score == -1) :
-            sentiment = "Negative"
-        
-        elif (final_score == 0) :
-            sentiment = "Neutral"
-        
-        elif (final_score == 1) :
-            sentiment = "Positive"
-        
-        elif (final_score == 2) :
-            sentiment = "Strongly Positive"
+        sentiment = generate_sentiment(text)
         
         return jsonify(
             {
@@ -217,9 +223,9 @@ def get_score2():
                 sentiment = "Negative"
 
         final_dictionary = {}
-        # for each sentence in sentence_list call get_score() and store the sentence and sentiment in a dictionary
+        # for each sentence in sentence_list call generate_sentiment() and store the sentence and sentiment in a dictionary
         for sentence in sentence_list:
-            final_dictionary[sentence] = get_score(sentence)
+            final_dictionary[sentence] = generate_sentiment(sentence)
         
         return jsonify(
             {
