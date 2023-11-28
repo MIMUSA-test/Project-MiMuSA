@@ -97,8 +97,27 @@
                     <!-- <textarea class="form-control" v-model="original_text" @keydown.enter.prevent="get_score()"></textarea> -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4 col-md-3 col-lg-2 py-3">
+            <div class="row justify-content-end mb-4">
+                <div class="col-sm-12 col-md align-self-center text-center text-md-start pt-3 pt-md-0" v-if="error_message != null">
+                    <span class="text-danger fw-bold fst-italic">
+                        {{error_message}}
+                    </span>
+                </div>
+                <div class="col-sm-12 col-md align-self-center text-center text-md-start pt-3 pt-md-0" v-if="error_message == null && res_data != null">
+                    <span class=" fw-bold">
+                        Overall Sentiment:
+                    </span>
+                    {{
+                        typeof res_data['data'] == 'string' ?
+                        res_data['data'] : res_data['overall_sentiment']
+                    }}
+                </div>
+
+                <div class="col-12 col-md-3 col-lg-2 text-center align-self-center order-last">
+                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="about.html">Learn more</a>
+                </div>
+
+                <div class="col-12 col-md-3 col-lg-2 py-3 order-md-last">
                     <button type="button" v-show="text_type == 'sentence'" class="btn btn-primary w-100" v-on:click="get_score()">
                         Analyse
                     </button>
@@ -106,36 +125,43 @@
                         Analyse
                     </button>
                 </div>
-
-                <div class="col-sm-4 col-md-3 col-lg-2 text-center text-sm-start align-self-center">
-                    <a class="link-offset-2 link-underline link-underline-opacity-0" href="about.html">Learn more</a>
-                </div>
             </div>
 
-            <div class="row pt-4">
-                <div class="col">
-                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                        data-bs-title="
-                                    <b>Sentiments:</b> <br>
-                                    Strongly Positive <br>
-                                    Positive <br>
-                                    Neutral <br>
-                                    Negative <br>
-                                    Strongly Negative <br>
-                                    "
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" viewBox="0 2 24 24" style="fill:#FFFFFF;">
-                            <path d="M12,2C6.477,2,2,6.477,2,12s4.477,10,10,10s10-4.477,10-10S17.523,2,12,2z M13,17h-2v-6h2V17z M13,9h-2V7h2V9z"></path>
-                        </svg>
-                    </a> 
-                    
-                    <b>
-                        Sentiment Value: 
-                    </b>
-                        {{sentiment}}
-                </div>
-            </div>
+            <table class="table table-dark align-middle mt-3" v-if="error_message == null && res_data != null">
+                <thead>
+                    <tr>
+                        <th scope="col-6 col-md-9">Sentence</th>
+                        <th scope="col-6 col-md-3" style="text-align: right;">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                                data-bs-title="
+                                            <b>Sentiments:</b> <br>
+                                            Strongly Positive <br>
+                                            Positive <br>
+                                            Neutral <br>
+                                            Negative <br>
+                                            Strongly Negative <br>
+                                            "
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" viewBox="0 2 24 24" style="fill:#FFFFFF;">
+                                    <path d="M12,2C6.477,2,2,6.477,2,12s4.477,10,10,10s10-4.477,10-10S17.523,2,12,2z M13,17h-2v-6h2V17z M13,9h-2V7h2V9z"></path>
+                                </svg>
+                            </a>
 
+                            Sentiment
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr v-if="typeof res_data['data'] == 'string'">
+                        <td class="col-6 col-md-9" scope="row">{{res_data['text']}}</td>
+                        <td class="col-6 col-md-3 text-end">{{res_data['data']}}</td>
+                    </tr>
+                    <tr v-else v-for="value, key in res_data['data']">
+                        <td class="col-6 col-md-9" scope="row">{{key}}</td>
+                        <td class="col-6 col-md-3 text-end">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     

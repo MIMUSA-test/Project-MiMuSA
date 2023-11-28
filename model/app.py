@@ -67,7 +67,7 @@ def get_score():
                 "code": 400,
                 "text": text,
                 "data": "There are no sentences in the text. Please input a proper sentence.",
-            }, 400
+            }
         )
         response.status_code = 400
         return response
