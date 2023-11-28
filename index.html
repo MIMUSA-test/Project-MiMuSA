@@ -132,7 +132,7 @@
                     <tr>
                         <th scope="col-6 col-md-9">Sentence</th>
                         <th scope="col-6 col-md-3" style="text-align: right;">
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" id="sentiment-tooltip"
                                 data-bs-title="
                                             <b>Sentiments:</b> <br>
                                             Strongly Positive <br>
@@ -156,9 +156,9 @@
                         <td class="col-6 col-md-9" scope="row">{{res_data['text']}}</td>
                         <td class="col-6 col-md-3 text-end">{{res_data['data']}}</td>
                     </tr>
-                    <tr v-else v-for="value, key in res_data['data']">
-                        <td class="col-6 col-md-9" scope="row">{{key}}</td>
-                        <td class="col-6 col-md-3 text-end">{{value}}</td>
+                    <tr v-else v-for="data in res_data['data']">
+                        <td class="col-6 col-md-9" scope="row">{{data['text']}}</td>
+                        <td class="col-6 col-md-3 text-end">{{data['sentiment']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -171,10 +171,6 @@
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="index.js"></script>
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-</script>
 
 </body>
 </html>

@@ -64,7 +64,21 @@ const app = Vue.createApp({
                 })
                 ;
         },
-    }
+
+        activateTooltip() {
+            // Assuming you have an element with the ID 'sentiment-tooltip' in your HTML
+            const tooltipElement = document.getElementById('sentiment-tooltip');
+            // Check if the tooltipElement is available before creating a new tooltip
+            if (tooltipElement) {
+                new bootstrap.Tooltip(tooltipElement);
+            }
+        },
+    },
+
+    // =========== LIFECYCLE HOOKS ===========
+    updated() {
+        this.activateTooltip();
+    },
 })
 
 

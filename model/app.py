@@ -57,6 +57,7 @@ def generate_sentiment(text):
 def get_score():
     text = request.get_data(as_text=True)
     print("\nReceived sentiment text in text format:", text)
+    text += "."
 
     # test for number of sentences
     sentence_count = lib2.countSentence(text)
@@ -97,6 +98,7 @@ def get_score():
 def get_score2():
     text = request.get_data(as_text=True)
     print("\nReceived sentiment text in text format:", text)
+    text += "."
 
     # test for number of sentences
     sentence_count = lib2.countSentence(text)
@@ -228,17 +230,20 @@ def get_score2():
             else:
                 sentiment = "Negative"
 
-        final_dictionary = {}
+        output_list = []
         # for each sentence in sentence_list call generate_sentiment() and store the sentence and sentiment in a dictionary
         for sentence in sentence_list:
-            final_dictionary[sentence] = generate_sentiment(sentence)
+            output_list.append({
+                "text": sentence,
+                "sentiment": generate_sentiment(sentence)
+            })
         
         return jsonify(
             {
                 "code": 200,
                 "text": text,
                 "overall_sentiment": sentiment,
-                "data": final_dictionary,
+                "data": output_list,
             }
         )
 
