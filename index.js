@@ -1,5 +1,5 @@
-// const model_url = "https://model.socialopinionanalytics.net"
-const model_url = "http://127.0.0.1:8080"
+const model_url = "https://model.socialopinionanalytics.net"
+// const model_url = "http://127.0.0.1:8080"
 
 const app = Vue.createApp({
 
