@@ -77,7 +77,7 @@ def get_score():
             {
                 "code": 400,
                 "text": text,
-                "data": f"There are {sentence_count} sentences in the text. Please use Paragraph-level instead. {sentence_list}",
+                "data": f"There are {sentence_count} sentences in the text. Please use Paragraph-level instead.",
             }
         )
         response.status_code = 400
@@ -205,6 +205,8 @@ def get_score2():
                 sentiment = "Positive"
             elif (negative_percentage - positive_percentage >= 20):
                 sentiment = "Negative"
+            elif (non_neutral_count > 0):
+                sentiment = "Mixed Sentiment"
             else:
                 sentiment = "Neutral"
             
